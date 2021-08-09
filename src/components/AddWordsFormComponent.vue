@@ -21,7 +21,21 @@
       />
       <button @click="addLang">Добавить</button>
     </div>
-    <div></div>
+    <div>
+      <div></div>
+      <div>
+        <input
+          v-model="isTransliterationConfirmed"
+          type="checkbox"
+          name="transliterationConfirm"
+        />
+        <label class="checkLabel" for="transliterationConfirm"
+          >Включить автоматическую транслитерацию с английской раскладки на
+          русскую для перевода</label
+        >
+      </div>
+      <div></div>
+    </div>
     <div>
       <label for="addWord">Новое слово</label>
       <input
@@ -38,9 +52,10 @@
       <textarea
         v-model="newWordTranslation"
         @keyup.enter="addWord"
+        @input="transliterate"
         ref="newWordTranslationInput"
+        class="translation_textarea"
       ></textarea>
-      <!-- <button @click="saveAll">Сохранить словарь</button> -->
     </div>
     <base-alert-component v-show="alert.length" :alert="alert" />
   </div>
@@ -49,6 +64,7 @@
 <script>
 import BaseAlertComponent from "./BaseAlertComponent.vue";
 import { putRecord, getRecord, createDefaultDicts } from "../handlersDB.js";
+import transliterateInput from "../transliterateKeyboard.js";
 export default {
   components: { BaseAlertComponent },
   props: {
@@ -73,19 +89,21 @@ export default {
       newWord: "",
       newWordTranslation: "",
       alert: "",
+      isTransliterationConfirmed: true,
     };
   },
 
-  computed: {
-    // dictName() {
-    //   return getPreparedName(this.profileName + this.fLang + this.secLang);
-    // },
-    // reverseDictName() {
-    //   return getPreparedName(this.profileName + this.secLang + this.fLang);
-    // },
+  computed: {},
+
+  created() {
+    const { pathname } = window.location;
+    window.history.pushState(null, document.title, `${pathname}?type=edit`);
   },
 
-  mounted() {},
+  beforeUnmount() {
+    const { pathname } = window.location;
+    window.history.pushState(null, document.title, pathname);
+  },
 
   methods: {
     addProfile() {
@@ -164,7 +182,19 @@ export default {
     moveFocusDown() {
       this.$refs.newWordTranslationInput.focus();
     },
+
+    transliterate() {
+      if (this.isTransliterationConfirmed) {
+        this.newWordTranslation = transliterateInput(this.newWordTranslation);
+      }
+    },
   },
 };
 </script>
 
+<style scoped>
+.checkLabel {
+  font-size: 0.7rem;
+  margin-left: 0.5rem;
+}
+</style>

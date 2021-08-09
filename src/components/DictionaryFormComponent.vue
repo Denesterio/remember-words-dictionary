@@ -4,7 +4,7 @@
       начать
     </button>
     <div class="word_container">{{ wordToShow }}</div>
-    <div class="translations_container" tabindex="0">
+    <div @click="showTranslation" class="translations_container">
       {{ translationToShow }}
     </div>
     <div class="buttons_container">
@@ -48,20 +48,15 @@ export default {
 
   data() {
     return {
-      dictionary: {},
+      dictionary: [],
       gameProcessing: false,
       nextProcessing: false,
+      isTranslationVisible: false,
       activeWord: [],
     };
   },
 
   computed: {
-    dictToShow() {
-      const now = Date.now();
-      return Object.entries(this.dictionary).filter(
-        (word) => word[1].nextShow < now
-      );
-    },
     isButtonsDisabled() {
       return !this.gameProcessing && !this.nextProcessing;
     },
@@ -69,7 +64,7 @@ export default {
       return this.activeWord[0];
     },
     translationToShow() {
-      return this.activeWord.length > 0
+      return this.isTranslationVisible
         ? [...this.activeWord[1].translations].join(" ,")
         : "";
     },
@@ -85,7 +80,10 @@ export default {
   methods: {
     getDictionary() {
       getRecord(this.dictName, window.DICTSTORE, (dict) => {
-        this.dictionary = dict;
+        const now = Date.now();
+        this.dictionary = Object.entries(dict).filter(
+          (word) => word[1].nextShow < now
+        );
       });
     },
 
@@ -95,10 +93,12 @@ export default {
     },
 
     next() {
-      if (this.dictToShow.length > 0) {
-        const index = getRandom(this.dictToShow.length);
-        this.activeWord = this.dictToShow[index];
+      if (this.dictionary.length > 0) {
+        this.isTranslationVisible = false;
+        const index = getRandom(this.dictionary.length);
+        this.activeWord = this.dictionary[index];
       } else {
+        this.isTranslationVisible = true;
         this.activeWord = [
           "",
           { translations: ["Слова для повторения закончились"] },
@@ -111,13 +111,18 @@ export default {
       this.gameProcessing = false;
     },
 
+    showTranslation() {
+      if (this.gameProcessing) {
+        this.isTranslationVisible = true;
+      }
+    },
+
     answerHandler(answer) {
       if (!answer) {
         this.next();
         return;
       }
       this.nextProcessing = true;
-      delete this.dictionary[this.wordToShow];
       getRecord(this.dictName, window.DICTSTORE, (dict) => {
         switch (answer) {
           case "bad":
@@ -136,6 +141,10 @@ export default {
           .then(() => this.next())
           .finally(() => (this.nextProcessing = false));
       });
+      const id = this.dictionary.findIndex(
+        ([word]) => word === this.wordToShow
+      );
+      this.dictionary.splice(id, 1);
     },
   },
 

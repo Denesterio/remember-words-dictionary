@@ -53,24 +53,38 @@ body {
 #app {
   width: 100%;
 }
-@media screen and (min-width: 1280px) {
+
+main {
+  margin-top: 9rem;
+  text-align: center;
+}
+
+.tabset {
+  margin: 1rem auto;
+  text-align: left;
+}
+
+@media screen and (min-width: 1360px) {
   .tabset {
     width: 50%;
-    margin: 10rem auto;
   }
 }
 
-@media screen and (max-width: 1279px) {
+@media screen and (max-width: 1359px) {
   .tabset {
-    width: 70%;
-    margin: 10rem auto;
+    width: 65%;
   }
 }
 
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1024px) {
+  .tabset {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 850px) {
   .tabset {
     width: 95%;
-    margin: 10rem auto;
   }
 }
 
@@ -82,10 +96,10 @@ body {
 .tab {
   padding: 0.2rem 1rem;
   line-height: 1.5;
-  border: 1px solid #B06C1E;
+  border: 1px solid #b06c1e;
   border-bottom: 0px;
   border-collapse: collapse;
-  background-color: #B06C1E;
+  background-color: #b06c1e;
 }
 
 .tab > label:hover {
@@ -101,11 +115,11 @@ body {
 
 .tabset > input:nth-child(1):focus ~ ul li:nth-child(1) label,
 .tabset > input:nth-child(2):focus ~ ul li:nth-child(2) label {
-  text-decoration:underline;
+  text-decoration: underline;
 }
 
 .content {
-  border: 1px solid #B06C1E;
+  border: 1px solid #b06c1e;
   padding: 1rem 2rem;
 }
 
@@ -118,7 +132,7 @@ select {
   grid-template-columns: 2fr 3fr;
   justify-content: space-between;
   font-size: 0.8rem;
-  border-top: 1px solid #B06C1E;
+  border-top: 1px solid #b06c1e;
   padding: 0.5rem 1rem;
 }
 
@@ -164,8 +178,16 @@ select {
 
 .add_container button {
   color: #fff;
-  background-color: #B06C1E;
+  background-color: #b06c1e;
   border-radius: 5px;
+}
+
+.translation_textarea {
+  height: 7rem;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  padding: 0.4rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .word_container {
@@ -174,7 +196,7 @@ select {
   background-color: #eee;
   margin-top: 1rem;
   padding: 0.5rem 2rem;
-  border: 2px solid #B06C1E;
+  border: 2px solid #b06c1e;
   color: #333;
   text-align: center;
 }
@@ -185,7 +207,7 @@ select {
   background-color: #eee;
   margin-top: 1rem;
   padding: 2rem;
-  border: 2px solid #B06C1E;
+  border: 2px solid #b06c1e;
   color: #333;
   text-align: center;
 }
@@ -194,10 +216,10 @@ select {
   width: 25%;
   height: 2.2rem;
   padding: 0.5rem 2rem;
-  color: #B06C1E;
+  color: #b06c1e;
   font-size: 1.2rem;
   line-height: 1.2rem;
-  border: 2px solid #B06C1E;
+  border: 2px solid #b06c1e;
 }
 
 @media screen and (max-width: 600px) {
@@ -207,7 +229,7 @@ select {
 }
 
 .start_button:not([disabled]):hover {
-  background-color: #B06C1E;
+  background-color: #b06c1e;
   color: #eee;
   border: 2px solid #eee;
   cursor: pointer;
@@ -229,12 +251,12 @@ select {
 .buttons_container button {
   height: 2rem;
   padding: 0.4rem 1rem;
-  color: #B06C1E;
+  color: #b06c1e;
   font-size: 1rem;
   line-height: 1.2rem;
   border-top: none;
-  border-bottom: 2px solid #B06C1E;
-  border-right: 2px solid #B06C1E;
+  border-bottom: 2px solid #b06c1e;
+  border-right: 2px solid #b06c1e;
 }
 
 .buttons_container button:not([class]) {
@@ -242,11 +264,11 @@ select {
 }
 
 .button_left {
-  border-left: 2px solid #B06C1E;
+  border-left: 2px solid #b06c1e;
 }
 
 .buttons_container button:active {
-  background-color: #B06C1E;
+  background-color: #b06c1e;
   color: #eee;
 }
 
@@ -259,7 +281,7 @@ select {
   width: 100%;
   height: 50px;
   color: #fff;
-  background-color: #B06C1E;
+  background-color: #b06c1e;
   text-align: center;
   line-height: 50px;
   top: 0px;
