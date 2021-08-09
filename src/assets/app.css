@@ -1,0 +1,267 @@
+* {
+  box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+body {
+  background-color: #234355;
+  color: #fff;
+}
+
+#app {
+  width: 100%;
+}
+@media screen and (min-width: 1280px) {
+  .tabset {
+    width: 50%;
+    margin: 10rem auto;
+  }
+}
+
+@media screen and (max-width: 1279px) {
+  .tabset {
+    width: 70%;
+    margin: 10rem auto;
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .tabset {
+    width: 95%;
+    margin: 10rem auto;
+  }
+}
+
+.tabs {
+  display: flex;
+  align-items: start;
+}
+
+.tab {
+  padding: 0.2rem 1rem;
+  line-height: 1.5;
+  border: 1px solid #B06C1E;
+  border-bottom: 0px;
+  border-collapse: collapse;
+  background-color: #B06C1E;
+}
+
+.tab > label:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.tabset > ul label {
+  display: inline-block;
+  padding: 0.2rem 1rem;
+  border-right-width: 0;
+}
+
+.tabset > input:nth-child(1):focus ~ ul li:nth-child(1) label,
+.tabset > input:nth-child(2):focus ~ ul li:nth-child(2) label {
+  text-decoration:underline;
+}
+
+.content {
+  border: 1px solid #B06C1E;
+  padding: 1rem 2rem;
+}
+
+select {
+  color: #777;
+}
+
+.selects_container {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  border-top: 1px solid #B06C1E;
+  padding: 0.5rem 1rem;
+}
+
+.select_container_right {
+  text-align: right;
+}
+
+.select_profile {
+  padding: 0.2rem;
+  margin: 0.6rem;
+  line-height: 1.5;
+}
+
+.change_langs_arrows:hover {
+  cursor: pointer;
+}
+
+.add_container {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 2fr;
+  gap: 1rem;
+  color: #ddd;
+  align-items: center;
+}
+
+.add_container > div {
+  display: grid;
+  grid-template-columns: 2fr 4fr 1fr;
+  gap: 1rem;
+}
+
+.add_container label {
+  text-align: right;
+  font-size: 0.9rem;
+}
+
+.add_container input,
+.add_container textarea {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  padding: 0.1rem 0.5rem;
+}
+
+.add_container button {
+  color: #fff;
+  background-color: #B06C1E;
+  border-radius: 5px;
+}
+
+.word_container {
+  width: 100%;
+  height: 2.5rem;
+  background-color: #eee;
+  margin-top: 1rem;
+  padding: 0.5rem 2rem;
+  border: 2px solid #B06C1E;
+  color: #333;
+  text-align: center;
+}
+
+.translations_container {
+  width: 100%;
+  height: 15rem;
+  background-color: #eee;
+  margin-top: 1rem;
+  padding: 2rem;
+  border: 2px solid #B06C1E;
+  color: #333;
+  text-align: center;
+}
+
+.start_button {
+  width: 25%;
+  height: 2.2rem;
+  padding: 0.5rem 2rem;
+  color: #B06C1E;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  border: 2px solid #B06C1E;
+}
+
+@media screen and (max-width: 600px) {
+  .start_button {
+    width: 100%;
+  }
+}
+
+.start_button:not([disabled]):hover {
+  background-color: #B06C1E;
+  color: #eee;
+  border: 2px solid #eee;
+  cursor: pointer;
+}
+
+.start_button:disabled {
+  opacity: 90%;
+  border: none;
+  color: #aaa;
+}
+
+.buttons_container {
+  display: grid;
+  justify-content: space-evenly;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  background-color: #eee;
+}
+
+.buttons_container button {
+  height: 2rem;
+  padding: 0.4rem 1rem;
+  color: #B06C1E;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  border-top: none;
+  border-bottom: 2px solid #B06C1E;
+  border-right: 2px solid #B06C1E;
+}
+
+.buttons_container button:not([class]) {
+  border-left: none;
+}
+
+.button_left {
+  border-left: 2px solid #B06C1E;
+}
+
+.buttons_container button:active {
+  background-color: #B06C1E;
+  color: #eee;
+}
+
+.buttons_container button:disabled {
+  opacity: 30%;
+}
+
+.alert {
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  color: #fff;
+  background-color: #B06C1E;
+  text-align: center;
+  line-height: 50px;
+  top: 0px;
+  left: 0px;
+}

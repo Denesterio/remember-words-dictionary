@@ -1,4 +1,9 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
+import './assets/app.css';
 
-createApp(App).mount('#app')
+window.BASENAME = 'keepInMindWordsDictionary';
+window.PROFILESTORE = 'keepInMindWordsDictionaryProfiles';
+window.DICTSTORE = 'keepInMindWordsDictionaries';
+
+createApp(App).mount('#app');
