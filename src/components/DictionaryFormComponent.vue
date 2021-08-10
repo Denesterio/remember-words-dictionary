@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <button @click="start" class="start_button" :disabled="gameProcessing">
+    <button @click="start" class="base_button" :disabled="gameProcessing">
       начать
     </button>
     <div class="word_container">{{ wordToShow }}</div>
@@ -64,9 +64,7 @@ export default {
       return this.activeWord[0];
     },
     translationToShow() {
-      return this.isTranslationVisible
-        ? [...this.activeWord[1].translations].join(" ,")
-        : "";
+      return this.isTranslationVisible ? this.activeWord[1].translations : "";
     },
   },
 
@@ -101,7 +99,7 @@ export default {
         this.isTranslationVisible = true;
         this.activeWord = [
           "",
-          { translations: ["Слова для повторения закончились"] },
+          { translations: "Слова для повторения закончились" },
         ];
         this.stop();
       }

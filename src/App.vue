@@ -89,8 +89,22 @@
         value="AddWordsFormComponent"
       />
       <ul class="tabs">
-        <li class="tab"><label for="tabset_1_teach">Учить</label></li>
-        <li class="tab"><label for="tabset_1_add">Редактировать</label></li>
+        <li
+          class="tab"
+          :class="{
+            tab_active: currentComponent === 'DictionaryFormComponent',
+          }"
+        >
+          <label for="tabset_1_teach">Учить</label>
+        </li>
+        <li
+          class="tab"
+          :class="{
+            tab_active: currentComponent === 'AddWordsFormComponent',
+          }"
+        >
+          <label for="tabset_1_add">Редактировать</label>
+        </li>
       </ul>
 
       <component
@@ -103,6 +117,9 @@
         @updateProfile="updateProfile"
       ></component>
     </div>
+    <button @click="exportDictionaries" class="download_button">
+      Скачать словари файлом
+    </button>
   </main>
 </template>
 
@@ -111,6 +128,7 @@ import AddWordsFormComponent from "./components/AddWordsFormComponent.vue";
 import DictionaryFormComponent from "./components/DictionaryFormComponent.vue";
 import initDB from "./initDB.js";
 import { getStore, getPreparedName } from "./handlersDB.js";
+import { exportToJson } from "./exportToJson.js";
 
 export default {
   name: "App",
@@ -200,6 +218,22 @@ export default {
         this.currentProfileName = profile.profileName;
         this.firstLang = [...profile.profileLangs][0];
       }
+    },
+    exportDictionaries() {
+      exportToJson(window.BASENAME).then((exportObject) => {
+        const dataStr =
+          "data:text/json;charset=utf-8," +
+          encodeURIComponent(JSON.stringify(exportObject));
+        const downloadAnchorNode = document.createElement("a");
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute(
+          "download",
+          "exportedDictionaries" + ".json"
+        );
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+      });
     },
   },
 };

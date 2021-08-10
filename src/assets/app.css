@@ -96,10 +96,14 @@ main {
 .tab {
   padding: 0.2rem 1rem;
   line-height: 1.5;
-  border: 1px solid #b06c1e;
+
   border-bottom: 0px;
   border-collapse: collapse;
+}
+
+.tab_active {
   background-color: #b06c1e;
+  border: 1px solid #b06c1e;
 }
 
 .tab > label:hover {
@@ -212,8 +216,8 @@ select {
   text-align: center;
 }
 
-.start_button {
-  width: 25%;
+.base_button {
+  max-width: fit-content;
   height: 2.2rem;
   padding: 0.5rem 2rem;
   color: #b06c1e;
@@ -228,14 +232,14 @@ select {
   }
 }
 
-.start_button:not([disabled]):hover {
+.base_button:not([disabled]):hover {
   background-color: #b06c1e;
   color: #eee;
   border: 2px solid #eee;
   cursor: pointer;
 }
 
-.start_button:disabled {
+.base_button:disabled {
   opacity: 90%;
   border: none;
   color: #aaa;
@@ -274,6 +278,23 @@ select {
 
 .buttons_container button:disabled {
   opacity: 30%;
+}
+
+.download_button {
+  width: fit-content;
+  height: 1.8rem;
+  padding: 0.4rem 1rem;
+  color: #b06c1e;
+  font-size: 0.9rem;
+  line-height: 1rem;
+  border: 1px solid #b06c1e;
+}
+
+.download_button:not([disabled]):hover {
+  background-color: #b06c1e;
+  color: #eee;
+  border: 1px solid #eee;
+  cursor: pointer;
 }
 
 .alert {

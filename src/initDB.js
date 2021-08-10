@@ -1,7 +1,6 @@
 import { createDefaultDicts } from './handlersDB.js';
 
-const indexedDB =
-  window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+const indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 // const IDBTransaction =
 //   window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
 
@@ -11,11 +10,10 @@ const createDefaultProfile = db => {
   const defaultProfileRequest = transaction.objectStore(window.PROFILESTORE).get(name);
   defaultProfileRequest.onsuccess = () => {
     if (!defaultProfileRequest.result) {
-      console.dir(defaultProfileRequest.result);
       const addProfileTransaction = db.transaction(window.PROFILESTORE, 'readwrite');
       const profile = {
         profileName: name,
-        profileLangs: new Set(['английский', 'русский'])
+        profileLangs: ['английский', 'русский']
       };
       const addRequest = addProfileTransaction.objectStore(window.PROFILESTORE).add(profile);
       addRequest.onsuccess = function() {

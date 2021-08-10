@@ -1,7 +1,7 @@
 const connectDB = func => {
   const request = indexedDB.open(window.BASENAME, 1);
   return new Promise((resolve, reject) => {
-    request.onsuccess = function() {
+    request.onsuccess = () => {
       const promise = func(request.result);
       if (promise) {
         promise.then(data => resolve(data)).catch(data => reject(data));
@@ -9,7 +9,7 @@ const connectDB = func => {
         resolve(request.result);
       }
     };
-    request.onerror = function(error) {
+    request.onerror = error => {
       reject(error);
     };
   });

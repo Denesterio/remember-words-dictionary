@@ -65,6 +65,8 @@
 import BaseAlertComponent from "./BaseAlertComponent.vue";
 import { putRecord, getRecord, createDefaultDicts } from "../handlersDB.js";
 import transliterateInput from "../transliterateKeyboard.js";
+import { addTranslations } from "../addTranslations.js";
+
 export default {
   components: { BaseAlertComponent },
   props: {
@@ -109,7 +111,7 @@ export default {
     addProfile() {
       const profile = {
         profileName: this.newProfile,
-        profileLangs: new Set(["английский", "русский"]),
+        profileLangs: ["английский", "русский"],
       };
       putRecord(profile, window.PROFILESTORE);
       createDefaultDicts(profile.profileName);
@@ -119,8 +121,10 @@ export default {
 
     addLang() {
       getRecord(this.profileName, window.PROFILESTORE, (profile) => {
-        profile.profileLangs.add(this.newLang);
-        putRecord(profile, window.PROFILESTORE);
+        if (!profile.profileLangs.contains(this.newLang)) {
+          profile.profileLangs.push(this.newLang);
+          putRecord(profile, window.PROFILESTORE);
+        }
         this.newLang = "";
         this.$emit("updateProfile", profile);
       });
@@ -136,11 +140,12 @@ export default {
         if (!dictionary.nameOfDictionaryAsKey) {
           dictionary.nameOfDictionaryAsKey = this.dictName;
         }
+        const updatedTranslations = addTranslations(
+          dictionary[this.newWord]?.translations,
+          translations
+        );
         dictionary[this.newWord] = {
-          translations: new Set([
-            ...translations,
-            ...(dictionary[this.newWord]?.translations || []),
-          ]),
+          translations: updatedTranslations,
           nextShow: Date.now(),
         };
         this.saveDictionary(dictionary);
@@ -157,10 +162,12 @@ export default {
           reverseDictionary.nameOfDictionaryAsKey = this.reverseDictName;
         }
         translations.reduce((acc, current) => {
+          const updatedTranslations = addTranslations(
+            acc[current]?.translations,
+            [word]
+          );
           acc[current] = {
-            translations: (
-              reverseDictionary[current]?.translations || new Set()
-            ).add(word),
+            translations: updatedTranslations,
             nextShow: Date.now(),
           };
           return acc;

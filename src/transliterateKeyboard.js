@@ -32,18 +32,15 @@ export default str => {
     m: 'ь',
     ',': 'б',
     '.': 'ю',
-    '/': '.'
+    '/': '.',
+    '?': ','
   };
 
-  const result = str
-    .split('')
-    .map(letter => {
-      if (letter.toLowerCase() === letter) {
-        return replacer[letter] || letter;
-      }
-      return replacer[letter.toLowerCase()]?.toUpperCase() || letter;
-    })
-    .join('');
+  const first = str.substr(0, str.length - 1);
+  const last = str[str.length - 1];
 
-  return result;
+  if (last.toLowerCase() === last) {
+    return first + (replacer[last] || last);
+  }
+  return first + (replacer[last.toLowerCase()]?.toUpperCase() || last);
 };
