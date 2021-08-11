@@ -125,23 +125,11 @@ main {
 .content {
   border: 1px solid #b06c1e;
   padding: 1rem 2rem;
+  min-width: 297px;
 }
 
 select {
   color: #777;
-}
-
-.selects_container {
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  justify-content: space-between;
-  font-size: 0.8rem;
-  border-top: 1px solid #b06c1e;
-  padding: 0.5rem 1rem;
-}
-
-.select_container_right {
-  text-align: right;
 }
 
 .select_profile {
@@ -162,10 +150,37 @@ select {
   align-items: center;
 }
 
-.add_container > div {
-  display: grid;
-  grid-template-columns: 2fr 4fr 1fr;
-  gap: 1rem;
+@media screen and (min-width: 720px) {
+  .selects_container {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    border-top: 1px solid #b06c1e;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .selects_container {
+    font-size: 0.8rem;
+    border-top: 1px solid #b06c1e;
+    padding: 0.5rem 1rem;
+  }
+
+  .separator {
+    display: none;
+  }
+
+  .select_container_right {
+    text-align: right;
+  }
+
+  .add_container > div {
+    display: grid;
+    grid-template-columns: 2fr 4fr 1fr;
+    gap: 1rem;
+  }
 }
 
 .add_container label {
@@ -173,17 +188,61 @@ select {
   font-size: 0.9rem;
 }
 
-.add_container input,
-.add_container textarea {
+.add_container button {
+  color: #fff;
+  background-color: #b06c1e;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 480px) {
+  .selects_container {
+    font-size: 0.8rem;
+    border-top: 1px solid #b06c1e;
+    padding: 0.5rem 1rem;
+  }
+
+  .separator {
+    display: block;
+  }
+
+  .select_container_right {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+
+  .add_container {
+    display: flex;
+    flex-direction: column;
+    color: #ddd;
+  }
+
+  .add_container > div {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .add_container label {
+    text-align: left;
+  }
+
+  .add_container button {
+    width: 50%;
+    height: 30px;
+  }
+}
+
+.add_container input {
   font-size: 1.1rem;
   line-height: 1.5;
   padding: 0.1rem 0.5rem;
 }
 
-.add_container button {
-  color: #fff;
-  background-color: #b06c1e;
-  border-radius: 5px;
+.add_container textarea {
+  font-size: 0.9rem;
+  line-height: 1.2;
+  padding: 0.3rem 0.7rem;
 }
 
 .translation_textarea {
@@ -261,14 +320,11 @@ select {
   border-top: none;
   border-bottom: 2px solid #b06c1e;
   border-right: 2px solid #b06c1e;
+  border-left: 2px solid #b06c1e;
 }
 
 .buttons_container button:not([class]) {
   border-left: none;
-}
-
-.button_left {
-  border-left: 2px solid #b06c1e;
 }
 
 .buttons_container button:active {
@@ -288,6 +344,7 @@ select {
   font-size: 0.9rem;
   line-height: 1rem;
   border: 1px solid #b06c1e;
+  margin-top: 0.5rem;
 }
 
 .download_button:not([disabled]):hover {

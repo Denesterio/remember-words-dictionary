@@ -21,8 +21,8 @@ const getRecord = (rec, store, func) => {
       .transaction([store], 'readonly')
       .objectStore(store)
       .get(rec);
-    // request.onerror = logerr;
-    request.onsuccess = function() {
+    request.onerror = error => console.dir(error);
+    request.onsuccess = () => {
       func(request.result ? request.result : -1);
     };
   });

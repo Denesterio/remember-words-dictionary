@@ -17,7 +17,8 @@
           <label for="profileChange">Выбрать&nbsp;профиль</label>
         </div>
         <div class="select_container_right">
-          <label for="langChange">Выбрать&nbsp;языки</label>
+          <label for="langChange">Выбрать&nbsp;языки</label
+          ><br class="separator" />
           <select v-model="firstLang" class="select_profile" name="langChange">
             <option v-for="lang in profileLangs" :key="lang" :value="lang">
               {{ lang }}

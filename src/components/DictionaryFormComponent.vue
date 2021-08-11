@@ -13,7 +13,7 @@
         class="button_left"
         :disabled="isButtonsDisabled"
       >
-        не запомнил
+        не запомнил(а)
       </button>
       <button @click="answerHandler('bad')" :disabled="isButtonsDisabled">
         плохо
@@ -149,6 +149,7 @@ export default {
   watch: {
     dictName() {
       this.gameProcessing = false;
+      this.activeWord = [];
       this.getDictionary();
     },
   },
