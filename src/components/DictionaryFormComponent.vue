@@ -10,10 +10,10 @@
     <div class="buttons_container">
       <button
         @click="answerHandler(null)"
-        class="button_left"
+        class="buttons_container_button_left"
         :disabled="isButtonsDisabled"
       >
-        не запомнил(а)
+        ужасно
       </button>
       <button @click="answerHandler('bad')" :disabled="isButtonsDisabled">
         плохо
@@ -64,7 +64,7 @@ export default {
       return this.activeWord[0];
     },
     translationToShow() {
-      return this.isTranslationVisible ? this.activeWord[1].translations : "";
+      return this.isTranslationVisible ? this.activeWord[1]?.translations : "";
     },
   },
 
@@ -73,6 +73,10 @@ export default {
 
   mounted() {
     this.getDictionary();
+  },
+
+  beforeUnmount() {
+    document.body.removeEventListener("keydown", this.keyHandler);
   },
 
   methods: {
@@ -87,6 +91,7 @@ export default {
 
     start() {
       this.gameProcessing = true;
+      document.body.addEventListener("keydown", this.keyHandler);
       this.next();
     },
 
@@ -96,17 +101,19 @@ export default {
         const index = getRandom(this.dictionary.length);
         this.activeWord = this.dictionary[index];
       } else {
+        this.stop();
         this.isTranslationVisible = true;
         this.activeWord = [
           "",
           { translations: "Слова для повторения закончились" },
         ];
-        this.stop();
       }
     },
 
     stop() {
       this.gameProcessing = false;
+      this.activeWord = [];
+      document.body.removeEventListener("keydown", this.keyHandler);
     },
 
     showTranslation() {
@@ -144,12 +151,41 @@ export default {
       );
       this.dictionary.splice(id, 1);
     },
+
+    keyHandler(event) {
+      switch (event.code) {
+        case "KeyB":
+          event.preventDefault();
+          this.answerHandler("bad");
+          break;
+        case "KeyG":
+          event.preventDefault();
+          this.answerHandler("good");
+          break;
+        case "Backspace":
+          event.preventDefault();
+          this.answerHandler(null);
+          break;
+        case "Enter":
+          event.preventDefault();
+          this.answerHandler("perfect");
+          break;
+        case "Space":
+          event.preventDefault();
+          this.showTranslation();
+          break;
+        case "Escape":
+          this.stop();
+          break;
+        default:
+          return;
+      }
+    },
   },
 
   watch: {
     dictName() {
-      this.gameProcessing = false;
-      this.activeWord = [];
+      this.stop();
       this.getDictionary();
     },
   },

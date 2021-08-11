@@ -18,7 +18,6 @@ const handleExportToJson = idbDatabase => {
           .addEventListener('success', event => {
             const cursor = event.target.result;
             if (cursor) {
-              console.dir(cursor.value);
               allObjects.push(cursor.value);
               cursor.continue();
             } else {

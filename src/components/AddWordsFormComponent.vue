@@ -45,7 +45,6 @@
         name="addWord"
         ref="newWordInput"
       />
-      <button @click="addWord">Добавить</button>
     </div>
     <div>
       <label for="addTranslation">Перевод</label>
@@ -56,6 +55,7 @@
         ref="newWordTranslationInput"
         class="translation_textarea"
       ></textarea>
+      <button @click="addWord">Добавить</button>
     </div>
     <base-alert-component v-show="alert.length" :alert="alert" />
   </div>

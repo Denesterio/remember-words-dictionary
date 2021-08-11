@@ -89,6 +89,15 @@
         aria-hidden="true"
         value="AddWordsFormComponent"
       />
+      <input
+        v-model="currentComponent"
+        type="radio"
+        name="tabset_1"
+        id="tabset_1_about"
+        hidden
+        aria-hidden="true"
+        value="SettingsComponent"
+      />
       <ul class="tabs">
         <li
           class="tab"
@@ -106,6 +115,14 @@
         >
           <label for="tabset_1_add">Редактировать</label>
         </li>
+        <li
+          class="tab"
+          :class="{
+            tab_active: currentComponent === 'SettingsComponent',
+          }"
+        >
+          <label for="tabset_1_about">О приложении</label>
+        </li>
       </ul>
 
       <component
@@ -118,14 +135,13 @@
         @updateProfile="updateProfile"
       ></component>
     </div>
-    <import-export-buttons-component />
   </main>
 </template>
 
 <script>
 import AddWordsFormComponent from "./components/AddWordsFormComponent.vue";
 import DictionaryFormComponent from "./components/DictionaryFormComponent.vue";
-import ImportExportButtonsComponent from "./components/ImportExportButtonsComponent.vue";
+import SettingsComponent from "./components/SettingsComponent.vue";
 import initDB from "./initDB.js";
 import { getStore, getPreparedName } from "./handlersDB.js";
 
@@ -134,7 +150,7 @@ export default {
   components: {
     AddWordsFormComponent,
     DictionaryFormComponent,
-    ImportExportButtonsComponent,
+    SettingsComponent,
   },
   data() {
     return {
@@ -165,11 +181,15 @@ export default {
 
   mounted() {},
 
+  titles: {
+    DictionaryFormComponent: "Помощник в запоминании слов",
+    AddWordsFormComponent: "Создание профиля и словарей",
+    SettingsComponent: "Немного о работе приложения",
+  },
+
   computed: {
     title() {
-      return this.currentComponent === "DictionaryFormComponent"
-        ? "Помощник в запоминании слов"
-        : "Создание профиля и словарей";
+      return this.$options.titles[this.currentComponent];
     },
     profileNames() {
       return this.profiles.map((pr) => pr.profileName);
