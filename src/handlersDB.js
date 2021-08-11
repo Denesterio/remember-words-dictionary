@@ -1,8 +1,8 @@
-const connectDB = func => {
+const connectDB = (func, ...payload) => {
   const request = indexedDB.open(window.BASENAME, 1);
   return new Promise((resolve, reject) => {
     request.onsuccess = () => {
-      const promise = func(request.result);
+      const promise = func(request.result, ...payload);
       if (promise) {
         promise.then(data => resolve(data)).catch(data => reject(data));
       } else {

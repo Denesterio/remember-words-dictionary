@@ -34,23 +34,22 @@ const handleExportToJson = idbDatabase => {
   });
 };
 
-const importFromJson = (idbDatabase, json) => {
+const handleImportFromJson = (idbDatabase, json) => {
   return new Promise((resolve, reject) => {
     const transaction = idbDatabase.transaction(idbDatabase.objectStoreNames, 'readwrite');
     transaction.addEventListener('error', reject);
 
-    var importObject = JSON.parse(json);
+    const prepared = JSON.parse(json);
+    const importObject = JSON.parse(prepared);
     for (const storeName of idbDatabase.objectStoreNames) {
       let count = 0;
       for (const toAdd of importObject[storeName]) {
-        const request = transaction.objectStore(storeName).add(toAdd);
+        const request = transaction.objectStore(storeName).put(toAdd);
         request.addEventListener('success', () => {
           count++;
           if (count === importObject[storeName].length) {
-            // Added all objects for this store
             delete importObject[storeName];
             if (Object.keys(importObject).length === 0) {
-              // Added all object stores
               resolve();
             }
           }
@@ -62,6 +61,10 @@ const importFromJson = (idbDatabase, json) => {
 
 const exportToJson = () => {
   return connectDB(handleExportToJson);
+};
+
+const importFromJson = json => {
+  return connectDB(handleImportFromJson, json);
 };
 
 export { exportToJson, importFromJson };
