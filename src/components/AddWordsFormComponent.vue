@@ -64,8 +64,10 @@
 <script>
 import BaseAlertComponent from "./BaseAlertComponent.vue";
 import { putRecord, getRecord, createDefaultDicts } from "../handlersDB.js";
-import transliterateInput from "../transliterateKeyboard.js";
+import createTransliterator from "../transliterateKeyboard.js";
 import { addTranslations } from "../addTranslations.js";
+
+const transliterateInput = createTransliterator();
 
 export default {
   components: { BaseAlertComponent },
@@ -190,9 +192,21 @@ export default {
       this.$refs.newWordTranslationInput.focus();
     },
 
-    transliterate() {
+    transliterate(event) {
       if (this.isTransliterationConfirmed) {
-        this.newWordTranslation = transliterateInput(this.newWordTranslation);
+        const cursorPosition = this.$refs.newWordTranslationInput.selectionEnd;
+        const index = cursorPosition - 1;
+        this.newWordTranslation = transliterateInput(
+          this.newWordTranslation,
+          event.data,
+          index
+        );
+        this.$nextTick().then(() => {
+          this.$refs.newWordTranslationInput.setSelectionRange(
+            cursorPosition,
+            cursorPosition
+          );
+        });
       }
     },
   },

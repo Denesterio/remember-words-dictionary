@@ -121,7 +121,7 @@
             tab_active: currentComponent === 'SettingsComponent',
           }"
         >
-          <label for="tabset_1_about">О приложении</label>
+          <label for="tabset_1_about">О&nbsp;приложении</label>
         </li>
       </ul>
 

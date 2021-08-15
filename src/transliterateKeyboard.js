@@ -1,4 +1,4 @@
-export default str => {
+export default () => {
   const replacer = {
     q: 'й',
     w: 'ц',
@@ -36,11 +36,14 @@ export default str => {
     '?': ','
   };
 
-  const first = str.substr(0, str.length - 1);
-  const last = str[str.length - 1];
-
-  if (last.toLowerCase() === last) {
-    return first + (replacer[last] || last);
-  }
-  return first + (replacer[last.toLowerCase()]?.toUpperCase() || last);
+  return (str, symbol, index) => {
+    if (!symbol) {
+      return str;
+    }
+    const newSymbol =
+      symbol.toLowerCase() === symbol
+        ? replacer[symbol] || symbol
+        : replacer[symbol.toLowerCase()]?.toUpperCase() || symbol;
+    return str.substr(0, index) + newSymbol + str.substr(index + 1);
+  };
 };
